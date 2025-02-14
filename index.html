@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will You Be My Valentine?</title>
   <style>
+    /* Your existing CSS styles */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #ffebee;
@@ -125,43 +126,41 @@
       transform: translate(-50%, -50%);
       font-size: 3rem;
     }
-   .letter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px; /* Reduced padding */
-  border-radius: 10px; /* Adjusted border radius */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 80%; /* Adjusted width */
-  max-width: 600px; /* Adjusted max-width */
-  display: none;
-  text-align: center; /* Center text */
-  line-height: 1.6; /* Improved line spacing */
-  white-space: normal; /* Ensure text wraps naturally */
-  overflow-wrap: break-word; /* Prevent long words from overflowing */
-  font-size: 1.2rem; /* Adjust font size for readability */
-}
-    .letter h2 {
-      color: #e91e63;
-      font-size: 2rem;
-      margin-bottom: 20px;
+    .slideshow-container {
+      position: relative;
+      max-width: 800px;
+      margin: auto;
+      display: none; /* Hide slideshow by default */
     }
-    .letter p {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 20px;
+    .mySlides {
+      display: none; /* Hide all slides by default */
     }
-    .go-to-letter-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #e91e63;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
+    .mySlides img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    /* Navigation buttons */
+    .prev, .next {
       cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
     }
   </style>
 </head>
@@ -210,22 +209,27 @@
     <div id="response" class="hidden">
       <h1>Yay! You made me the happiest person! 🎉</h1>
       <p>I can't wait to spend Valentine's Day with you! ❤️</p>
-      <button class="go-to-letter-button" onclick="goToLoveLetter()">Go to Love Letter</button>
+      <button class="go-to-letter-button" onclick="goToLoveLetter()">Go to Slideshow</button>
     </div>
 
-   <div id="loveLetter" class="hidden">
-  <div class="envelope" onclick="openLetter()"></div>
-  <div class="letter" id="letterContent">
-    <h2>My Dearest Love,</h2>
-    <p>
-      Every moment with you feels like a dream come true. You are my everything, and I cherish every second we spend together. 
-      I love you more than words can express, and I can't wait to create more beautiful memories with you. 
-      Happy Valentine's Day, my love! ❤️
-    </p>
-    <p>Forever yours,</p>
-    <p>[Your Name]</p>
-  </div>
-</div>
+    <div id="loveLetter" class="hidden">
+      <div class="envelope" onclick="openSlideshow()"></div>
+      <div class="slideshow-container" id="slideshow">
+        <!-- Slideshow images -->
+        <div class="mySlides fade">
+          <img src="image1.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+          <img src="image2.jpg" style="width:100%">
+        </div>
+        <div class="mySlides fade">
+          <img src="image3.jpg" style="width:100%">
+        </div>
+        <!-- Navigation buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -322,11 +326,29 @@
     function goToLoveLetter() {
       document.getElementById('response').classList.add('hidden');
       document.getElementById('loveLetter').classList.remove('hidden');
+      openSlideshow(); // Open the slideshow
     }
 
-    function openLetter() {
+    function openSlideshow() {
       document.querySelector('.envelope').style.display = 'none';
-      document.getElementById('letterContent').style.display = 'block';
+      document.getElementById('slideshow').style.display = 'block';
+      showSlides(slideIndex);
+    }
+
+    let slideIndex = 1;
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("mySlides");
+      if (n > slides.length) { slideIndex = 1; }
+      if (n < 1) { slideIndex = slides.length; }
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slides[slideIndex - 1].style.display = "block";
     }
   </script>
 
