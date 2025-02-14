@@ -128,7 +128,7 @@
     }
     .slideshow-container {
       position: relative;
-      max-width: 800px;
+      max-width: 600px; /* Adjust the width of the slideshow */
       margin: auto;
       display: none; /* Hide slideshow by default */
     }
@@ -136,31 +136,10 @@
       display: none; /* Hide all slides by default */
     }
     .mySlides img {
-      width: 100%;
+      width: 80%; /* Make images smaller */
       border-radius: 10px;
-    }
-    /* Navigation buttons */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
+      display: block;
+      margin: 0 auto; /* Center the images */
     }
   </style>
 </head>
@@ -217,17 +196,35 @@
       <div class="slideshow-container" id="slideshow">
         <!-- Slideshow images -->
         <div class="mySlides fade">
-          <img src="1.jpg" style="width:100%">
+          <img src="1.jpeg">
         </div>
         <div class="mySlides fade">
-          <img src="2.jpg" style="width:100%">
+          <img src="2.jpg">
         </div>
         <div class="mySlides fade">
-          <img src="3.jpg" style="width:100%">
+          <img src="3.jpg">
         </div>
-        <!-- Navigation buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="mySlides fade">
+          <img src="4.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="5.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="6.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="7.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="8.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="9.jpg">
+        </div>
+        <div class="mySlides fade">
+          <img src="10.jpg">
+        </div>
       </div>
     </div>
   </div>
@@ -329,26 +326,23 @@
       openSlideshow(); // Open the slideshow
     }
 
+    let slideIndex = 0;
+
     function openSlideshow() {
       document.querySelector('.envelope').style.display = 'none';
       document.getElementById('slideshow').style.display = 'block';
-      showSlides(slideIndex);
+      showSlides(); // Start the slideshow
     }
 
-    let slideIndex = 1;
-
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-
-    function showSlides(n) {
+    function showSlides() {
       let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) { slideIndex = 1; }
-      if (n < 1) { slideIndex = slides.length; }
       for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = "none"; // Hide all slides
       }
-      slides[slideIndex - 1].style.display = "block";
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; } // Loop back to the first slide
+      slides[slideIndex - 1].style.display = "block"; // Show the current slide
+      setTimeout(showSlides, 3000); // Change slide every 3 seconds (adjust as needed)
     }
   </script>
 
